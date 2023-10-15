@@ -26,7 +26,7 @@ df = df.astype(
 
 es = Elasticsearch(
     "https://localhost:9200",
-    basic_auth=("elastic", "1nf0rm4t10nr3tr13v4l3l4st1cs34rch"),
+    basic_auth=("elastic", "changeme"),
     verify_certs=False,
     ssl_show_warn=False,
 )
@@ -36,8 +36,8 @@ documents = df.to_dict(orient="records")
 
 def doc_generator(data):
     """Generator function for creating documents."""
-    for idx, document in enumerate(data):
-        yield {"_index": "documents", "_id": idx, "_source": document}
+    for _, document in enumerate(data):
+        yield {"_index": "documents", "_id": document["id"], "_source": document}
 
 
 print("Inserting documents into Elasticsearch...")
